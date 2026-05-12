@@ -181,12 +181,14 @@ def load_custom_css():
         color: white !important;
         border: none !important;
         border-radius: 980px !important;
-        padding: 0.75rem 2rem !important;
+        padding: 0.625rem 1.5rem !important;
         font-weight: 500 !important;
-        font-size: 0.95rem !important;
+        font-size: 0.875rem !important;
         letter-spacing: -0.01em !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         box-shadow: none !important;
+        min-height: 40px !important;
+        width: 100% !important;
     }
 
     .stButton > button:hover {
