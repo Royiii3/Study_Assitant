@@ -3,15 +3,11 @@
 """
 import sys
 from pathlib import Path
-
-# 添加项目根目录到 sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
-from utils import (
-    load_custom_css, render_sidebar, render_footer,
-    render_section_header, check_data_loaded
-)
+import streamlit_shadcn_ui as ui
+from utils import load_custom_css, render_sidebar, render_footer
 from data_processing import get_correlation_analysis
 from visualization import (
     plot_score_distribution,
@@ -27,16 +23,19 @@ st.set_page_config(page_title="可视化展示", layout="wide")
 load_custom_css()
 render_sidebar()
 
-# 页面标题 - Apple 风格
+# 页面标题
 st.markdown("""
-<div class="page-header">
-    <h1 class="page-title">可视化展示</h1>
-    <p class="page-subtitle">多维度图表分析</p>
+<div style="margin-bottom: 2rem;">
+    <h1 style="font-size: 2.5rem; font-weight: 700; color: #0f172a; letter-spacing: -0.03em;">可视化展示</h1>
+    <p style="font-size: 1.1rem; color: #64748b;">多维度图表分析</p>
 </div>
 """, unsafe_allow_html=True)
 
 # 检查数据是否已加载
-if not check_data_loaded():
+if 'data_loaded' not in st.session_state or not st.session_state['data_loaded']:
+    with ui.card(key="empty_card"):
+        st.markdown("###   请先加载数据")
+        st.markdown("前往「数据加载」页面上传CSV文件或生成模拟数据")
     render_footer()
     st.stop()
 
@@ -52,17 +51,13 @@ charts = [
     ("各班级学业等级分布", "各班级学业等级的堆叠柱状图", lambda: plot_grade_by_class(df)),
 ]
 
-# 渲染图表 - Apple 风格
+# 渲染图表
 for i, (title, desc, plot_func) in enumerate(charts):
-    st.markdown(f"""
-    <div class="custom-card">
-        <h3>{title}</h3>
-        <p>{desc}</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    fig = plot_func()
-    st.pyplot(fig)
+    with ui.card(key=f"chart_{i}"):
+        st.markdown(f"### {title}")
+        st.markdown(desc)
+        fig = plot_func()
+        st.pyplot(fig)
 
     if i < len(charts) - 1:
         st.markdown("<br>", unsafe_allow_html=True)

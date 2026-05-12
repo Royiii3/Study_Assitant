@@ -3,15 +3,11 @@
 """
 import sys
 from pathlib import Path
-
-# 添加项目根目录到 sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
-from utils import (
-    load_custom_css, render_sidebar, render_footer,
-    render_section_header, render_info_card, render_metric_card, check_data_loaded
-)
+import streamlit_shadcn_ui as ui
+from utils import load_custom_css, render_sidebar, render_footer, render_metric_card
 from data_processing import preprocess_data
 
 # 页面配置
@@ -19,16 +15,19 @@ st.set_page_config(page_title="数据预处理", layout="wide")
 load_custom_css()
 render_sidebar()
 
-# 页面标题 - Apple 风格
+# 页面标题
 st.markdown("""
-<div class="page-header">
-    <h1 class="page-title">数据预处理</h1>
-    <p class="page-subtitle">处理缺失值、异常值并标准化数据</p>
+<div style="margin-bottom: 2rem;">
+    <h1 style="font-size: 2.5rem; font-weight: 700; color: #0f172a; letter-spacing: -0.03em;">数据预处理</h1>
+    <p style="font-size: 1.1rem; color: #64748b;">处理缺失值、异常值并标准化数据</p>
 </div>
 """, unsafe_allow_html=True)
 
 # 检查数据是否已加载
-if not check_data_loaded():
+if 'data_loaded' not in st.session_state or not st.session_state['data_loaded']:
+    with ui.card(key="empty_card"):
+        st.markdown("###   请先加载数据")
+        st.markdown("前往「数据加载」页面上传CSV文件或生成模拟数据")
     render_footer()
     st.stop()
 
@@ -36,57 +35,51 @@ if not check_data_loaded():
 if 'scaler' not in st.session_state:
     st.session_state['scaler'] = None
 
-# 预处理区域 - Apple 风格布局
+# 预处理区域
 col1, col2 = st.columns([1, 2], gap="large")
 
 with col1:
-    st.markdown("""
-    <div class="custom-card">
-        <h3>预处理选项</h3>
-        <p>自动执行以下操作：</p>
-        <ul style="color: #86868b; margin-top: 1rem; line-height: 2;">
-            <li>缺失值填充（均值/众数）</li>
-            <li>异常值处理（IQR方法）</li>
-            <li>数据标准化（Z-score）</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
-
-    if st.button("执行预处理", type="primary", use_container_width=True):
-        with st.spinner("处理中..."):
-            df = st.session_state['df']
-            df_processed, scaler = preprocess_data(df)
-            st.session_state['df'] = df_processed
-            st.session_state['scaler'] = scaler
-        st.success("数据预处理完成！")
-        st.rerun()
+    with ui.card(key="options_card"):
+        st.markdown("### ⚙️ 预处理选项")
+        st.markdown("自动执行以下操作：")
+        st.markdown("""
+        - 缺失值填充（均值/众数）
+        - 异常值处理（IQR方法）
+        - 数据标准化（Z-score）
+        """)
+        st.markdown("")
+        if ui.button("执行预处理", key="preprocess_btn", variant="default"):
+            with st.spinner("处理中..."):
+                df = st.session_state['df']
+                df_processed, scaler = preprocess_data(df)
+                st.session_state['df'] = df_processed
+                st.session_state['scaler'] = scaler
+            st.success("数据预处理完成！")
+            st.rerun()
 
 with col2:
-    st.markdown("""
-    <div class="custom-card">
-        <h3>缺失值检查</h3>
-        <p>检查各字段的缺失值情况</p>
-    </div>
-    """, unsafe_allow_html=True)
+    with ui.card(key="missing_card"):
+        st.markdown("###   缺失值检查")
+        st.markdown("检查各字段的缺失值情况")
 
-    df = st.session_state['df']
-    missing_counts = df.isnull().sum()
+        df = st.session_state['df']
+        missing_counts = df.isnull().sum()
 
-    if missing_counts.sum() == 0:
-        st.success("数据完整，无缺失值")
-    else:
-        missing_df = missing_counts[missing_counts > 0].reset_index()
-        missing_df.columns = ['字段', '缺失数量']
-        st.dataframe(missing_df, use_container_width=True)
+        if missing_counts.sum() == 0:
+            st.success("数据完整，无缺失值")
+        else:
+            missing_df = missing_counts[missing_counts > 0].reset_index()
+            missing_df.columns = ['字段', '缺失数量']
+            ui.table(missing_df, key="missing_table")
 
 # 显示预处理后的数据信息
 if st.session_state['scaler'] is not None:
     st.markdown("---")
 
     st.markdown("""
-    <div class="page-header">
-        <h2 class="page-title">预处理结果</h2>
-        <p class="page-subtitle">数据已标准化处理</p>
+    <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; font-weight: 700; color: #0f172a;">预处理结果</h2>
+        <p style="color: #64748b;">数据已标准化处理</p>
     </div>
     """, unsafe_allow_html=True)
 

@@ -3,16 +3,12 @@
 """
 import sys
 from pathlib import Path
-
-# 添加项目根目录到 sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
+import streamlit_shadcn_ui as ui
 import pandas as pd
-from utils import (
-    load_custom_css, render_sidebar, render_footer,
-    render_metric_card, render_section_header
-)
+from utils import load_custom_css, render_sidebar, render_footer, render_metric_card
 from data_processing import generate_synthetic_data
 
 # 页面配置
@@ -22,9 +18,9 @@ render_sidebar()
 
 # 页面标题
 st.markdown("""
-<div class="page-header">
-    <h1 class="page-title">数据加载</h1>
-    <p class="page-subtitle">上传数据文件或使用模拟数据开始分析</p>
+<div style="margin-bottom: 2rem;">
+    <h1 style="font-size: 2.5rem; font-weight: 700; color: #0f172a; letter-spacing: -0.03em;">数据加载</h1>
+    <p style="font-size: 1.1rem; color: #64748b;">上传数据文件或使用模拟数据开始分析</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -38,44 +34,42 @@ if 'df' not in st.session_state:
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    st.markdown("""
-    <div class="custom-card">
-        <h3>上传数据文件</h3>
-        <p>支持CSV格式的数据文件</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    uploaded_file = st.file_uploader("选择CSV文件", type=["csv"], label_visibility="collapsed")
-    if st.button("上传并加载数据", type="primary", use_container_width=True):
-        if uploaded_file is not None:
-            try:
-                df = pd.read_csv(uploaded_file)
-                st.session_state['df'] = df
-                st.session_state['data_loaded'] = True
-                st.success("数据加载成功！")
-                st.rerun()
-            except Exception as e:
-                st.error(f"数据加载失败: {e}")
-        else:
-            st.warning("请先选择CSV文件")
+    with ui.card(key="upload_card"):
+        st.markdown("###   上传数据文件")
+        st.markdown("支持CSV格式的数据文件")
+        st.markdown("")
+        uploaded_file = st.file_uploader("选择CSV文件", type=["csv"], label_visibility="collapsed")
+        if ui.button("上传并加载数据", key="upload_btn", variant="default"):
+            if uploaded_file is not None:
+                try:
+                    df = pd.read_csv(uploaded_file)
+                    st.session_state['df'] = df
+                    st.session_state['data_loaded'] = True
+                    st.success("数据加载成功！")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"数据加载失败: {e}")
+            else:
+                st.warning("请先选择CSV文件")
 
 with col2:
-    st.markdown("""
-    <div class="custom-card">
-        <h3>使用模拟数据</h3>
-        <p>自动生成200条模拟学习数据</p>
-        <p style="color: #86868b; font-size: 0.85rem; margin-top: 0.5rem;">
-            包含学习时长、作业完成度、考勤率、测验成绩、课堂参与度等字段
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    if st.button("生成模拟数据", use_container_width=True):
-        df = generate_synthetic_data()
-        st.session_state['df'] = df
-        st.session_state['data_loaded'] = True
-        st.success("模拟数据生成成功！")
-        st.rerun()
+    with ui.card(key="synthetic_card"):
+        st.markdown("###   使用模拟数据")
+        st.markdown("自动生成200条模拟学习数据")
+        st.markdown("")
+        st.markdown("""
+        <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <p style="color: #64748b; font-size: 0.875rem; margin: 0;">
+                包含学习时长、作业完成度、考勤率、测验成绩、课堂参与度等字段
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        if ui.button("生成模拟数据", key="generate_btn", variant="secondary"):
+            df = generate_synthetic_data()
+            st.session_state['df'] = df
+            st.session_state['data_loaded'] = True
+            st.success("模拟数据生成成功！")
+            st.rerun()
 
 # 显示数据预览
 if st.session_state['data_loaded'] and st.session_state['df'] is not None:
@@ -95,17 +89,19 @@ if st.session_state['data_loaded'] and st.session_state['df'] is not None:
     st.markdown("<br><br>", unsafe_allow_html=True)
 
     # 数据预览
-    render_section_header("数据预览", "查看数据集的详细信息")
+    st.markdown("### 数据预览")
+    st.markdown("*查看数据集的详细信息*")
     num_rows = st.slider("显示行数", min_value=5, max_value=len(df), value=20, step=5)
     display_df = df.head(num_rows).reset_index(drop=True)
     display_df.index = display_df.index + 1
-    st.dataframe(display_df, use_container_width=True)
+    ui.table(display_df, key="data_preview")
     st.caption(f"共 {len(df)} 条数据，当前显示前 {num_rows} 条")
 
     st.markdown("<br><br>", unsafe_allow_html=True)
 
     # 数据统计摘要
-    render_section_header("数据统计摘要", "各字段的统计指标")
+    st.markdown("### 数据统计摘要")
+    st.markdown("*各字段的统计指标*")
     stats_df = df.describe()
     stats_index_mapping = {
         'count': '样本数量', 'mean': '平均值', 'std': '标准差',
@@ -113,7 +109,7 @@ if st.session_state['data_loaded'] and st.session_state['df'] is not None:
         '75%': '75%分位数', 'max': '最大值'
     }
     stats_df = stats_df.rename(index=stats_index_mapping)
-    st.dataframe(stats_df.round(2), use_container_width=True)
+    ui.table(stats_df.round(2), key="stats_table")
 
     with st.expander("查看统计指标说明"):
         st.markdown("""

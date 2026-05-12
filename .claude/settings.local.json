@@ -7,7 +7,8 @@
       "Bash(mv \"4_ 可视化展示.py\" \"4_可视化展示.py\")",
       "Bash(mv \"5_ 学业预测.py\" \"5_学业预测.py\")",
       "Bash(python -c ' *)",
-      "Bash(python -c 'import ast; ast.parse\\(open\\('\\\\''__TRACKED_VAR__'\\\\'', encoding='\\\\''utf-8'\\\\''\\).read\\(\\)\\); print\\('\\\\''OK'\\\\''\\)')"
+      "Bash(python -c 'import ast; ast.parse\\(open\\('\\\\''__TRACKED_VAR__'\\\\'', encoding='\\\\''utf-8'\\\\''\\).read\\(\\)\\); print\\('\\\\''OK'\\\\''\\)')",
+      "WebSearch"
     ]
   }
 }
