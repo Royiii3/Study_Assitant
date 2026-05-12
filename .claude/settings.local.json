@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv \"1_ 数据加载.py\" \"1_数据加载.py\")",
+      "Bash(mv \"2_⚙️_数据预处理.py\" \"2_数据预处理.py\")",
+      "Bash(mv \"3_ 统计分析.py\" \"3_统计分析.py\")",
+      "Bash(mv \"4_ 可视化展示.py\" \"4_可视化展示.py\")",
+      "Bash(mv \"5_ 学业预测.py\" \"5_学业预测.py\")",
+      "Bash(python -c ' *)",
+      "Bash(python -c 'import ast; ast.parse\\(open\\('\\\\''__TRACKED_VAR__'\\\\'', encoding='\\\\''utf-8'\\\\''\\).read\\(\\)\\); print\\('\\\\''OK'\\\\''\\)')"
+    ]
+  }
+}
