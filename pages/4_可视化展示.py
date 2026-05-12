@@ -57,7 +57,7 @@ for i, (title, desc, plot_func) in enumerate(charts):
         st.markdown(f"### {title}")
         st.markdown(desc)
         fig = plot_func()
-        st.pyplot(fig)
+        st.plotly_chart(fig, use_container_width=True)
 
     if i < len(charts) - 1:
         st.markdown("<br>", unsafe_allow_html=True)
