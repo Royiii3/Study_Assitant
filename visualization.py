@@ -52,14 +52,16 @@ def plot_behavior_score_correlation(df):
         )
 
         # 添加趋势线
-        z = np.polyfit(df[col], df['最终成绩'], 1)
-        p = np.poly1d(z)
-        x_line = np.linspace(df[col].min(), df[col].max(), 100)
-        fig.add_trace(
-            go.Scatter(x=x_line, y=p(x_line), mode='lines',
-                      line=dict(color='red', width=2), name=f'{behavior_labels[i]}趋势线'),
-            row=row, col=col_idx
-        )
+        mask = df[col].notna() & df['最终成绩'].notna()
+        if mask.sum() > 1:
+            z = np.polyfit(df.loc[mask, col], df.loc[mask, '最终成绩'], 1)
+            p = np.poly1d(z)
+            x_line = np.linspace(df[col].min(), df[col].max(), 100)
+            fig.add_trace(
+                go.Scatter(x=x_line, y=p(x_line), mode='lines',
+                          line=dict(color='red', width=2), name=f'{behavior_labels[i]}趋势线'),
+                row=row, col=col_idx
+            )
 
     fig.update_layout(height=600, showlegend=False, title_text="学习行为与成绩关联")
     return fig
