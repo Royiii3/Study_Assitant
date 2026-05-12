@@ -37,8 +37,8 @@ df = st.session_state['df']
 with ui.card(key="corr_card"):
     st.markdown("###   学习行为与成绩相关性")
     st.markdown("分析各学习行为指标与最终成绩的相关程度")
-    corr_df = get_correlation_analysis(df)
-    ui.table(corr_df.round(2), key="corr_table")
+    corr_df = get_correlation_analysis(df).round(2).fillna(0)
+    st.dataframe(corr_df, use_container_width=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -46,8 +46,8 @@ st.markdown("<br>", unsafe_allow_html=True)
 with ui.card(key="class_card"):
     st.markdown("###   班级学习状态统计")
     st.markdown("各班级的学习行为指标对比")
-    class_stats = get_class_statistics(df)
-    ui.table(class_stats, key="class_table")
+    class_stats = get_class_statistics(df).fillna(0)
+    st.dataframe(class_stats, use_container_width=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -56,7 +56,7 @@ with ui.card(key="grade_card"):
     st.markdown("###   学业等级分布")
     st.markdown("优、良、中、差各等级占比")
     grade_dist = get_grade_distribution(df)
-    ui.table(grade_dist, key="grade_table")
+    st.dataframe(grade_dist, use_container_width=True)
 
 # 页脚
 render_footer()

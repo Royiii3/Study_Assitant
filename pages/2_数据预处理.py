@@ -70,7 +70,7 @@ with col2:
         else:
             missing_df = missing_counts[missing_counts > 0].reset_index()
             missing_df.columns = ['字段', '缺失数量']
-            ui.table(missing_df, key="missing_table")
+            st.dataframe(missing_df, use_container_width=True)
 
 # 显示预处理后的数据信息
 if st.session_state['scaler'] is not None:

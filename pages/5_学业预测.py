@@ -115,7 +115,7 @@ if ui.button("预测学业等级", key="predict_btn", variant="default"):
             '学业等级': list(prob_dict.keys()),
             '概率': [f"{p:.2%}" for p in prob_dict.values()]
         })
-        ui.table(prob_df, key="prob_table")
+        st.dataframe(prob_df, use_container_width=True)
 
 # 页脚
 render_footer()

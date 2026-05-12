@@ -59,7 +59,7 @@ with ui.card(key="matrix_card"):
         index=metrics['classes'],
         columns=metrics['classes']
     )
-    ui.table(conf_matrix_df, key="matrix_table")
+    st.dataframe(conf_matrix_df, use_container_width=True)
 
 # 页脚
 render_footer()

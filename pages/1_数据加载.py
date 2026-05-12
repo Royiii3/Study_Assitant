@@ -94,7 +94,7 @@ if st.session_state['data_loaded'] and st.session_state['df'] is not None:
     num_rows = st.slider("显示行数", min_value=5, max_value=len(df), value=20, step=5)
     display_df = df.head(num_rows).reset_index(drop=True)
     display_df.index = display_df.index + 1
-    ui.table(display_df, key="data_preview")
+    st.dataframe(display_df, use_container_width=True)
     st.caption(f"共 {len(df)} 条数据，当前显示前 {num_rows} 条")
 
     st.markdown("<br><br>", unsafe_allow_html=True)
@@ -109,7 +109,7 @@ if st.session_state['data_loaded'] and st.session_state['df'] is not None:
         '75%': '75%分位数', 'max': '最大值'
     }
     stats_df = stats_df.rename(index=stats_index_mapping)
-    ui.table(stats_df.round(2), key="stats_table")
+    st.dataframe(stats_df.round(2), use_container_width=True)
 
     with st.expander("查看统计指标说明"):
         st.markdown("""
