@@ -3,14 +3,35 @@
 提供各种图表绘制功能
 """
 import matplotlib.pyplot as plt
+import matplotlib
 import seaborn as sns
 import pandas as pd
-from utils import setup_matplotlib_chinese
+
+
+def setup_font():
+    """设置中文字体 - 兼容 Linux/Windows/Mac"""
+    import platform
+    system = platform.system()
+
+    if system == "Windows":
+        plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
+    elif system == "Darwin":  # Mac
+        plt.rcParams['font.sans-serif'] = ['Arial Unicode MS', 'PingFang SC', 'DejaVu Sans']
+    else:  # Linux
+        plt.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei', 'WenQuanYi Zen Hei', 'Noto Sans CJK SC', 'DejaVu Sans']
+
+    plt.rcParams['axes.unicode_minus'] = False
+
+    # 如果上述字体都不可用，使用 matplotlib 内置的方式
+    try:
+        matplotlib.font_manager.findfont('DejaVu Sans')
+    except:
+        pass
 
 
 def plot_score_distribution(df):
     """绘制科目成绩分布柱状图"""
-    setup_matplotlib_chinese()
+    setup_font()
 
     score_cols = ['编程成绩', '高数成绩', '英语成绩', 'Python成绩']
     fig, axes = plt.subplots(2, 2, figsize=(12, 10))
@@ -43,7 +64,7 @@ def plot_score_distribution(df):
 
 def plot_behavior_score_correlation(df):
     """绘制学习行为与成绩关联散点图"""
-    setup_matplotlib_chinese()
+    setup_font()
 
     behavior_cols = ['学习时长', '作业完成度', '考勤率', '测验成绩']
     behavior_labels = ['学习时长', '作业完成度', '考勤率', '测验成绩']
@@ -67,7 +88,7 @@ def plot_behavior_score_correlation(df):
 
 def plot_class_distribution(df):
     """绘制班级学习状态分布饼图"""
-    setup_matplotlib_chinese()
+    setup_font()
 
     fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
@@ -89,7 +110,7 @@ def plot_class_distribution(df):
 
 def plot_learning_trend(df):
     """绘制学期学习进度趋势折线图"""
-    setup_matplotlib_chinese()
+    setup_font()
 
     weeks = ['第1周', '第4周', '第8周', '第12周', '第16周']
 
@@ -123,7 +144,7 @@ def plot_learning_trend(df):
 
 def plot_correlation_heatmap(corr_df):
     """绘制相关性热力图"""
-    setup_matplotlib_chinese()
+    setup_font()
 
     fig, ax = plt.subplots(figsize=(10, 8))
 
@@ -138,7 +159,7 @@ def plot_correlation_heatmap(corr_df):
 
 def plot_grade_by_class(df):
     """绘制各班级学业等级分布堆叠柱状图"""
-    setup_matplotlib_chinese()
+    setup_font()
 
     grade_by_class = df.groupby(['班级', '学业等级']).size().unstack().fillna(0)
 

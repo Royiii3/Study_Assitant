@@ -482,23 +482,8 @@ def render_empty_state(icon, message, sub_message=""):
 
 
 def render_sidebar():
-    """渲染侧边栏内容 - Apple 深色风格"""
-    with st.sidebar:
-        st.markdown('<div class="sidebar-title">学习行为分析</div>', unsafe_allow_html=True)
-
-        st.markdown("""
-        <div class="sidebar-subtitle">
-            基于机器学习的学业预测<br>与数据分析平台
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown("""
-        <div class="sidebar-features">
-            <span>  数据驱动决策</span>
-            <span>  机器学习预测</span>
-            <span>  可视化分析</span>
-        </div>
-        """, unsafe_allow_html=True)
+    """渲染侧边栏内容 - 简洁风格"""
+    pass  # Streamlit 自动生成侧边栏导航，无需额外内容
 
 
 def render_footer():
