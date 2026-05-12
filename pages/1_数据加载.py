@@ -1,9 +1,14 @@
 """
 数据加载与预览页面
 """
+import sys
+from pathlib import Path
+
+# 添加项目根目录到 sys.path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 import streamlit as st
 import pandas as pd
-from config import SUBJECT_SCORES
 from utils import (
     load_custom_css, render_sidebar, render_footer,
     render_metric_card, render_section_header, render_info_card
@@ -11,7 +16,7 @@ from utils import (
 from data_processing import generate_synthetic_data
 
 # 页面配置
-st.set_page_config(page_title="数据加载 - 学习行为分析系统", page_icon=" ", layout="wide")
+st.set_page_config(page_title="数据加载", page_icon=" ", layout="wide")
 load_custom_css()
 render_sidebar()
 
@@ -19,7 +24,7 @@ render_sidebar()
 st.markdown("""
 <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
     <h1 style="text-align: center; margin: 0; font-size: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-         数据加载与预览
+        数据加载与预览
     </h1>
     <p style="text-align: center; color: #6c757d; font-size: 1rem; margin-top: 0.5rem;">
         上传数据文件或使用模拟数据开始分析
@@ -37,28 +42,28 @@ if 'df' not in st.session_state:
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    render_info_card("  上传数据文件", "支持CSV格式的数据文件")
+    render_info_card("上传数据文件", "支持CSV格式的数据文件")
     uploaded_file = st.file_uploader("选择CSV文件", type=["csv"], label_visibility="collapsed")
-    if st.button("  上传并加载数据", type="primary", use_container_width=True):
+    if st.button("上传并加载数据", type="primary", use_container_width=True):
         if uploaded_file is not None:
             try:
                 df = pd.read_csv(uploaded_file)
                 st.session_state['df'] = df
                 st.session_state['data_loaded'] = True
-                st.success("✓ 数据加载成功！")
+                st.success("数据加载成功！")
                 st.rerun()
             except Exception as e:
-                st.error(f"✗ 数据加载失败: {e}")
+                st.error(f"数据加载失败: {e}")
         else:
-            st.warning("⚠ 请先选择CSV文件")
+            st.warning("请先选择CSV文件")
 
 with col2:
-    render_info_card("  使用模拟数据", "自动生成200条模拟学习数据")
-    if st.button("  生成模拟数据", use_container_width=True):
+    render_info_card("使用模拟数据", "自动生成200条模拟学习数据")
+    if st.button("生成模拟数据", use_container_width=True):
         df = generate_synthetic_data()
         st.session_state['df'] = df
         st.session_state['data_loaded'] = True
-        st.success("✓ 模拟数据生成成功！")
+        st.success("模拟数据生成成功！")
         st.rerun()
 
 # 显示数据预览
