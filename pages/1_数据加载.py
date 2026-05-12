@@ -11,7 +11,7 @@ import streamlit as st
 import pandas as pd
 from utils import (
     load_custom_css, render_sidebar, render_footer,
-    render_metric_card, render_section_header, render_info_card
+    render_metric_card, render_section_header
 )
 from data_processing import generate_synthetic_data
 
@@ -20,7 +20,7 @@ st.set_page_config(page_title="数据加载", layout="wide")
 load_custom_css()
 render_sidebar()
 
-# 页面标题 - Apple 风格
+# 页面标题
 st.markdown("""
 <div class="page-header">
     <h1 class="page-title">数据加载</h1>
@@ -34,16 +34,14 @@ if 'data_loaded' not in st.session_state:
 if 'df' not in st.session_state:
     st.session_state['df'] = None
 
-# 数据加载区域 - 对齐的两列布局
+# 数据加载区域
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
     st.markdown("""
-    <div class="custom-card" style="height: 280px; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-            <h3>上传数据文件</h3>
-            <p>支持CSV格式的数据文件</p>
-        </div>
+    <div class="custom-card">
+        <h3>上传数据文件</h3>
+        <p>支持CSV格式的数据文件</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -63,14 +61,12 @@ with col1:
 
 with col2:
     st.markdown("""
-    <div class="custom-card" style="height: 280px; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-            <h3>使用模拟数据</h3>
-            <p>自动生成200条模拟学习数据</p>
-            <p style="color: #86868b; font-size: 0.85rem; margin-top: 1rem;">
-                包含学习时长、作业完成度、考勤率、测验成绩、课堂参与度等字段
-            </p>
-        </div>
+    <div class="custom-card">
+        <h3>使用模拟数据</h3>
+        <p>自动生成200条模拟学习数据</p>
+        <p style="color: #86868b; font-size: 0.85rem; margin-top: 0.5rem;">
+            包含学习时长、作业完成度、考勤率、测验成绩、课堂参与度等字段
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -87,7 +83,7 @@ if st.session_state['data_loaded'] and st.session_state['df'] is not None:
 
     st.markdown("---")
 
-    # 指标卡片 - Apple 风格
+    # 指标卡片
     col1, col2, col3 = st.columns(3, gap="medium")
     with col1:
         render_metric_card("总学生数", len(df), " ")

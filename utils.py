@@ -39,27 +39,32 @@ def load_custom_css():
         max-width: 1080px;
     }
 
-    /* ===== 侧边栏 - 深色极简 ===== */
+    /* ===== 侧边栏 - 浅色极简 ===== */
     section[data-testid="stSidebar"] {
-        background: #1d1d1f !important;
-        border-right: none !important;
+        background: #f5f5f7 !important;
+        border-right: 1px solid #e8e8ed !important;
     }
 
     section[data-testid="stSidebar"] .stMarkdown h1,
     section[data-testid="stSidebar"] .stMarkdown h2,
     section[data-testid="stSidebar"] .stMarkdown h3,
     section[data-testid="stSidebar"] .stMarkdown p,
-    section[data-testid="stSidebar"] .stMarkdown li {
-        color: #f5f5f7 !important;
+    section[data-testid="stSidebar"] .stMarkdown li,
+    section[data-testid="stSidebar"] .stMarkdown span {
+        color: #1d1d1f !important;
     }
 
     section[data-testid="stSidebar"] [data-testid="stRadio"] label {
-        color: #f5f5f7 !important;
+        color: #1d1d1f !important;
+    }
+
+    section[data-testid="stSidebar"] [data-testid="stRadio"] label p {
+        color: #1d1d1f !important;
     }
 
     /* 侧边栏标题 */
     .sidebar-title {
-        color: #f5f5f7;
+        color: #1d1d1f !important;
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 2rem;
@@ -67,14 +72,14 @@ def load_custom_css():
     }
 
     .sidebar-subtitle {
-        color: #86868b;
+        color: #86868b !important;
         font-size: 0.85rem;
         line-height: 1.6;
         margin-bottom: 2rem;
     }
 
     .sidebar-features {
-        color: #86868b;
+        color: #86868b !important;
         font-size: 0.8rem;
         line-height: 2;
     }
@@ -82,6 +87,7 @@ def load_custom_css():
     .sidebar-features span {
         display: block;
         padding: 0.25rem 0;
+        color: #1d1d1f !important;
     }
 
     /* ===== 标题区域 - Apple Hero 风格 ===== */
