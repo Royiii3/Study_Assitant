@@ -96,7 +96,7 @@ with ui.card(key="format_card"):
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# 技术栈 - 使用 Badge
+# 技术栈
 with ui.card(key="tech_card"):
     st.markdown("### 技术栈")
     st.markdown("")
@@ -104,7 +104,11 @@ with ui.card(key="tech_card"):
     techs = ["Streamlit", "scikit-learn", "pandas", "matplotlib", "seaborn", "Python"]
     for i, tech in enumerate(techs):
         with cols[i]:
-            ui.badge(tech, variant="secondary", key=f"badge_{i}")
+            st.markdown(f"""
+            <div style="background: #f1f5f9; color: #475569; padding: 0.5rem 1rem; border-radius: 9999px; text-align: center; font-size: 0.875rem; font-weight: 500;">
+                {tech}
+            </div>
+            """, unsafe_allow_html=True)
 
 # 页脚
 render_footer()
