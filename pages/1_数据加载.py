@@ -16,19 +16,15 @@ from utils import (
 from data_processing import generate_synthetic_data
 
 # 页面配置
-st.set_page_config(page_title="数据加载", page_icon=" ", layout="wide")
+st.set_page_config(page_title="数据加载", layout="wide")
 load_custom_css()
 render_sidebar()
 
-# 页面标题
+# 页面标题 - Apple 风格
 st.markdown("""
-<div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-    <h1 style="text-align: center; margin: 0; font-size: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-        数据加载与预览
-    </h1>
-    <p style="text-align: center; color: #6c757d; font-size: 1rem; margin-top: 0.5rem;">
-        上传数据文件或使用模拟数据开始分析
-    </p>
+<div class="page-header">
+    <h1 class="page-title">数据加载</h1>
+    <p class="page-subtitle">上传数据文件或使用模拟数据开始分析</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -38,11 +34,19 @@ if 'data_loaded' not in st.session_state:
 if 'df' not in st.session_state:
     st.session_state['df'] = None
 
-# 数据加载区域
+# 数据加载区域 - 对齐的两列布局
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    render_info_card("上传数据文件", "支持CSV格式的数据文件")
+    st.markdown("""
+    <div class="custom-card" style="height: 280px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+            <h3>上传数据文件</h3>
+            <p>支持CSV格式的数据文件</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
     uploaded_file = st.file_uploader("选择CSV文件", type=["csv"], label_visibility="collapsed")
     if st.button("上传并加载数据", type="primary", use_container_width=True):
         if uploaded_file is not None:
@@ -58,7 +62,18 @@ with col1:
             st.warning("请先选择CSV文件")
 
 with col2:
-    render_info_card("使用模拟数据", "自动生成200条模拟学习数据")
+    st.markdown("""
+    <div class="custom-card" style="height: 280px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+            <h3>使用模拟数据</h3>
+            <p>自动生成200条模拟学习数据</p>
+            <p style="color: #86868b; font-size: 0.85rem; margin-top: 1rem;">
+                包含学习时长、作业完成度、考勤率、测验成绩、课堂参与度等字段
+            </p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
     if st.button("生成模拟数据", use_container_width=True):
         df = generate_synthetic_data()
         st.session_state['df'] = df
@@ -72,8 +87,8 @@ if st.session_state['data_loaded'] and st.session_state['df'] is not None:
 
     st.markdown("---")
 
-    # 指标卡片
-    col1, col2, col3 = st.columns(3)
+    # 指标卡片 - Apple 风格
+    col1, col2, col3 = st.columns(3, gap="medium")
     with col1:
         render_metric_card("总学生数", len(df), " ")
     with col2:
@@ -81,7 +96,7 @@ if st.session_state['data_loaded'] and st.session_state['df'] is not None:
     with col3:
         render_metric_card("特征数量", len(df.columns), " ")
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
     # 数据预览
     render_section_header("数据预览", "查看数据集的详细信息")
@@ -91,7 +106,7 @@ if st.session_state['data_loaded'] and st.session_state['df'] is not None:
     st.dataframe(display_df, use_container_width=True)
     st.caption(f"共 {len(df)} 条数据，当前显示前 {num_rows} 条")
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
     # 数据统计摘要
     render_section_header("数据统计摘要", "各字段的统计指标")

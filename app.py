@@ -1,10 +1,13 @@
 """
-大学生学习行为数据分析与学业预测系统
+学习行为数据分析与学业预测系统
 主入口文件
 """
 import streamlit as st
 from config import PAGE_CONFIG
-from utils import load_custom_css, render_sidebar, render_footer
+from utils import (
+    load_custom_css, render_sidebar, render_footer,
+    render_feature_grid, render_steps
+)
 
 # 页面配置
 st.set_page_config(**PAGE_CONFIG)
@@ -15,113 +18,95 @@ load_custom_css()
 # 渲染侧边栏
 render_sidebar()
 
-# 主页内容
+# Hero 区域 - Apple 风格
 st.markdown("""
-<div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-    <h1 style="text-align: center; margin: 0; font-size: 2.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-        大学生学习行为数据分析与学业预测系统
-    </h1>
-    <p style="text-align: center; color: #6c757d; font-size: 1.1rem; margin-top: 0.5rem;">
-        基于机器学习的学习行为分析与学业等级预测平台
+<div class="hero-section">
+    <h1 class="hero-title fade-in">学习行为分析<br>与学业预测</h1>
+    <p class="hero-subtitle fade-in">
+        基于机器学习技术，深入分析学生学习行为数据，<br>智能预测学业等级，助力教育决策。
     </p>
 </div>
 """, unsafe_allow_html=True)
 
-# 功能介绍
-col1, col2, col3 = st.columns(3, gap="large")
-
-with col1:
-    st.markdown("""
-    <div class="custom-card" style="text-align: center;">
-        <h3>  数据加载</h3>
-        <p style="color: #6c757d;">上传CSV文件或生成模拟数据，开始分析之旅</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown("""
-    <div class="custom-card" style="text-align: center;">
-        <h3>⚙️ 数据预处理</h3>
-        <p style="color: #6c757d;">自动处理缺失值、异常值，标准化数据格式</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-    <div class="custom-card" style="text-align: center;">
-        <h3>  统计分析</h3>
-        <p style="color: #6c757d;">深入分析学习行为与成绩的相关性</p>
-    </div>
-    """, unsafe_allow_html=True)
-
 st.markdown("<br>", unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns(3, gap="large")
+# 功能介绍 - Apple 风格网格
+features = [
+    (" ", "数据加载", "上传CSV文件或生成模拟数据，开始分析之旅"),
+    ("⚙️", "数据预处理", "智能处理缺失值、异常值，标准化数据格式"),
+    (" ", "统计分析", "深入分析学习行为与成绩的相关性"),
+    (" ", "可视化展示", "多维度图表，直观呈现数据特征"),
+    (" ", "学业预测", "基于逻辑回归模型，智能预测学业等级"),
+    (" ", "模型评估", "准确率、混淆矩阵，全面评估模型性能"),
+]
+render_feature_grid(features)
 
-with col1:
-    st.markdown("""
-    <div class="custom-card" style="text-align: center;">
-        <h3>  可视化展示</h3>
-        <p style="color: #6c757d;">多维度图表，直观呈现数据特征</p>
-    </div>
-    """, unsafe_allow_html=True)
+st.markdown("<br><br>", unsafe_allow_html=True)
 
-with col2:
-    st.markdown("""
-    <div class="custom-card" style="text-align: center;">
-        <h3>  学业预测</h3>
-        <p style="color: #6c757d;">基于逻辑回归模型，预测学业等级</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-    <div class="custom-card" style="text-align: center;">
-        <h3>  模型评估</h3>
-        <p style="color: #6c757d;">准确率、混淆矩阵，全面评估模型性能</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("<br>", unsafe_allow_html=True)
-
-# 使用说明
+# 使用说明 - Apple 风格步骤
 st.markdown("""
 <div class="custom-card">
-    <h3 style="margin-top: 0;">  使用说明</h3>
-    <ol style="color: #6c757d; line-height: 2;">
-        <li>点击左侧 <strong>  数据加载</strong> 上传CSV文件或生成模拟数据</li>
-        <li>进入 <strong>⚙️ 数据预处理</strong> 执行数据清洗和标准化</li>
-        <li>在 <strong>  统计分析</strong> 查看相关性和分布统计</li>
-        <li>通过 <strong>  可视化展示</strong> 查看各类图表</li>
-        <li>在 <strong>  学业预测</strong> 训练模型并预测学业等级</li>
-        <li>最后在 <strong>  模型评估</strong> 查看模型性能指标</li>
-    </ol>
+    <h3>快速开始</h3>
+    <p>按照以下步骤，开始您的数据分析之旅</p>
 </div>
 """, unsafe_allow_html=True)
 
-# 数据格式说明
+steps = [
+    '前往「数据加载」页面，上传CSV文件或点击「生成模拟数据」',
+    '进入「数据预处理」页面，点击「执行预处理」清洗数据',
+    '在「统计分析」页面查看相关性和分布统计',
+    '通过「可视化展示」页面查看各类图表分析',
+    '前往「学业预测」页面训练模型并预测学业等级',
+    '最后在「模型评估」页面查看模型性能指标',
+]
+render_steps(steps)
+
+st.markdown("<br><br>", unsafe_allow_html=True)
+
+# 数据格式说明 - Apple 风格
 st.markdown("""
 <div class="custom-card">
-    <h3 style="margin-top: 0;">  数据格式</h3>
-    <p style="color: #6c757d;">CSV文件应包含以下字段：</p>
-    <table style="width: 100%; color: #6c757d;">
-        <tr><td><strong>学号</strong></td><td>学生编号</td><td><strong>班级</strong></td><td>所在班级</td></tr>
-        <tr><td><strong>学习时长</strong></td><td>每周学习时长（小时）</td><td><strong>作业完成度</strong></td><td>作业完成百分比</td></tr>
-        <tr><td><strong>考勤率</strong></td><td>考勤百分比</td><td><strong>测验成绩</strong></td><td>最近测验成绩</td></tr>
-        <tr><td><strong>课堂参与度</strong></td><td>1-5分</td><td><strong>各科成绩</strong></td><td>编程/高数/英语/Python</td></tr>
-    </table>
+    <h3>数据格式</h3>
+    <p>CSV文件应包含以下字段</p>
+    <div style="margin-top: 1.5rem;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="border-bottom: 1px solid #e8e8ed;">
+                <td style="padding: 0.75rem 0; font-weight: 600; color: #1d1d1f;">学号</td>
+                <td style="padding: 0.75rem 0; color: #86868b;">学生编号</td>
+                <td style="padding: 0.75rem 0; font-weight: 600; color: #1d1d1f;">班级</td>
+                <td style="padding: 0.75rem 0; color: #86868b;">所在班级</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #e8e8ed;">
+                <td style="padding: 0.75rem 0; font-weight: 600; color: #1d1d1f;">学习时长</td>
+                <td style="padding: 0.75rem 0; color: #86868b;">每周学习时长（小时）</td>
+                <td style="padding: 0.75rem 0; font-weight: 600; color: #1d1d1f;">作业完成度</td>
+                <td style="padding: 0.75rem 0; color: #86868b;">作业完成百分比</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #e8e8ed;">
+                <td style="padding: 0.75rem 0; font-weight: 600; color: #1d1d1f;">考勤率</td>
+                <td style="padding: 0.75rem 0; color: #86868b;">考勤百分比</td>
+                <td style="padding: 0.75rem 0; font-weight: 600; color: #1d1d1f;">测验成绩</td>
+                <td style="padding: 0.75rem 0; color: #86868b;">最近测验成绩</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75rem 0; font-weight: 600; color: #1d1d1f;">课堂参与度</td>
+                <td style="padding: 0.75rem 0; color: #86868b;">1-5分</td>
+                <td style="padding: 0.75rem 0; font-weight: 600; color: #1d1d1f;">各科成绩</td>
+                <td style="padding: 0.75rem 0; color: #86868b;">编程/高数/英语/Python</td>
+            </tr>
+        </table>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
-# 技术栈
+st.markdown("<br>", unsafe_allow_html=True)
+
+# 技术栈 - Apple 风格
 st.markdown("""
-<div class="custom-card">
-    <h3 style="margin-top: 0;">  技术栈</h3>
-    <p style="color: #6c757d;">
-        <strong>前端框架：</strong>Streamlit |
-        <strong>数据分析：</strong>pandas, numpy |
-        <strong>可视化：</strong>matplotlib, seaborn |
-        <strong>机器学习：</strong>scikit-learn（逻辑回归）
+<div class="custom-card" style="text-align: center;">
+    <h3>技术栈</h3>
+    <p style="margin-top: 1rem;">
+        Streamlit · scikit-learn · pandas · matplotlib · seaborn
     </p>
 </div>
 """, unsafe_allow_html=True)

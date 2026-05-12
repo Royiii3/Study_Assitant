@@ -24,12 +24,12 @@ Study_Assistant/
 ├── visualization.py       # 可视化模块
 ├── prediction.py          # 预测模块
 ├── pages/                 # Streamlit多页面
-│   ├── 1_ 数据加载.py
-│   ├── 2_⚙️_数据预处理.py
-│   ├── 3_ 统计分析.py
-│   ├── 4_ 可视化展示.py
-│   ├── 5_ 学业预测.py
-│   └── 6_ 模型评估.py
+│   ├── 1_数据加载.py
+│   ├── 2_数据预处理.py
+│   ├── 3_统计分析.py
+│   ├── 4_可视化展示.py
+│   ├── 5_学业预测.py
+│   └── 6_模型评估.py
 ├── requirements.txt       # 依赖清单
 ├── .streamlit/
 │   └── config.toml        # Streamlit配置

@@ -17,159 +17,423 @@ def setup_matplotlib_chinese():
 
 
 def load_custom_css():
-    """加载自定义CSS样式"""
+    """加载自定义CSS样式 - Apple风格"""
     st.markdown("""
     <style>
-    /* 全局背景 */
+    /* ===== Apple 风格全局样式 ===== */
+
+    /* 导入系统字体 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
+
+    /* 全局背景 - 纯白 */
     .stApp {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #ffffff !important;
+        font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans SC', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+        color: #1d1d1f;
     }
 
-    /* 主容器 */
+    /* 主容器 - 大量留白 */
     .main .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-        max-width: 1200px;
+        padding-top: 3rem;
+        padding-bottom: 4rem;
+        max-width: 1080px;
     }
 
-    /* 侧边栏 */
+    /* ===== 侧边栏 - 深色极简 ===== */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #2c3e50 0%, #3498db 100%) !important;
+        background: #1d1d1f !important;
+        border-right: none !important;
     }
 
     section[data-testid="stSidebar"] .stMarkdown h1,
     section[data-testid="stSidebar"] .stMarkdown h2,
     section[data-testid="stSidebar"] .stMarkdown h3,
-    section[data-testid="stSidebar"] .stMarkdown p {
-        color: #ffffff !important;
+    section[data-testid="stSidebar"] .stMarkdown p,
+    section[data-testid="stSidebar"] .stMarkdown li {
+        color: #f5f5f7 !important;
+    }
+
+    section[data-testid="stSidebar"] [data-testid="stRadio"] label {
+        color: #f5f5f7 !important;
     }
 
     /* 侧边栏标题 */
     .sidebar-title {
-        color: #ffffff;
-        font-size: 1.8rem;
+        color: #f5f5f7;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        letter-spacing: -0.02em;
+    }
+
+    .sidebar-subtitle {
+        color: #86868b;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .sidebar-features {
+        color: #86868b;
+        font-size: 0.8rem;
+        line-height: 2;
+    }
+
+    .sidebar-features span {
+        display: block;
+        padding: 0.25rem 0;
+    }
+
+    /* ===== 标题区域 - Apple Hero 风格 ===== */
+    .hero-section {
+        text-align: center;
+        padding: 4rem 2rem 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .hero-title {
+        font-size: 3rem;
         font-weight: 700;
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.8rem;
-        border-bottom: 3px solid #3498db;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        color: #1d1d1f;
     }
 
-    /* 侧边栏装饰线 */
-    .sidebar-decoration {
-        background: linear-gradient(90deg, #3498db, #9b59b6);
-        height: 5px;
-        border-radius: 5px;
-        margin: 1rem 0;
+    .hero-subtitle {
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: #86868b;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.5;
     }
 
-    /* 卡片样式 */
+    /* ===== 卡片样式 - 极简白卡 ===== */
     .custom-card {
-        background: white;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background: #ffffff;
+        border: 1px solid #e8e8ed;
+        border-radius: 18px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .custom-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
     }
 
-    /* 指标卡片 */
+    .custom-card h3 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: #1d1d1f;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+    }
+
+    .custom-card p {
+        color: #86868b;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* ===== 指标卡片 - Apple 风格 ===== */
     .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 12px;
-        padding: 1.2rem;
-        color: white;
+        background: #f5f5f7;
+        border-radius: 18px;
+        padding: 2rem;
         text-align: center;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .metric-card:hover {
+        background: #e8e8ed;
     }
 
     .metric-value {
-        font-size: 2.5rem;
+        font-size: 3rem;
         font-weight: 700;
+        color: #1d1d1f;
         margin: 0.5rem 0;
+        letter-spacing: -0.03em;
     }
 
     .metric-label {
-        font-size: 1rem;
-        opacity: 0.9;
+        font-size: 0.9rem;
+        color: #86868b;
         font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
 
-    /* 按钮样式 */
+    /* ===== 按钮样式 - Apple Blue ===== */
     .stButton > button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        background: #0071e3 !important;
         color: white !important;
         border: none !important;
-        border-radius: 10px !important;
-        padding: 0.6rem 1.5rem !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3) !important;
+        border-radius: 980px !important;
+        padding: 0.75rem 2rem !important;
+        font-weight: 500 !important;
+        font-size: 0.95rem !important;
+        letter-spacing: -0.01em !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: none !important;
     }
 
     .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5) !important;
+        background: #0077ed !important;
+        transform: scale(1.02) !important;
+        box-shadow: 0 2px 12px rgba(0, 113, 227, 0.3) !important;
+    }
+
+    .stButton > button:active {
+        transform: scale(0.98) !important;
     }
 
     .stButton > button[type="primary"] {
-        background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%) !important;
-        box-shadow: 0 4px 15px rgba(0, 176, 155, 0.4) !important;
+        background: #0071e3 !important;
     }
 
-    /* 分割线 */
+    .stButton > button[kind="secondary"] {
+        background: #f5f5f7 !important;
+        color: #1d1d1f !important;
+    }
+
+    .stButton > button[kind="secondary"]:hover {
+        background: #e8e8ed !important;
+    }
+
+    /* ===== 分割线 - 细线 ===== */
     hr {
         border: none;
-        height: 2px;
-        background: linear-gradient(90deg, #3498db, #9b59b6, #e74c3c);
-        margin: 1.5rem 0;
+        height: 1px;
+        background: #e8e8ed;
+        margin: 2.5rem 0;
     }
 
-    /* 成功/警告框 */
+    /* ===== 成功/警告框 ===== */
     .stSuccess {
-        border-left: 5px solid #2ecc71 !important;
+        background: #f0f9f4 !important;
+        border: 1px solid #bbf7d0 !important;
+        border-radius: 12px !important;
+        color: #166534 !important;
     }
 
     .stWarning {
-        border-left: 5px solid #f39c12 !important;
+        background: #fffbeb !important;
+        border: 1px solid #fde68a !important;
+        border-radius: 12px !important;
+        color: #92400e !important;
     }
 
-    /* 隐藏默认元素 */
+    .stError {
+        background: #fef2f2 !important;
+        border: 1px solid #fecaca !important;
+        border-radius: 12px !important;
+        color: #991b1b !important;
+    }
+
+    /* ===== 隐藏默认元素 ===== */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
 
-    /* 页脚 */
+    /* ===== 页脚 ===== */
     .footer {
         text-align: center;
-        color: #7f8c8d;
-        font-size: 0.9rem;
-        margin-top: 3rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid #ecf0f1;
+        color: #86868b;
+        font-size: 0.85rem;
+        margin-top: 5rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e8e8ed;
     }
 
-    /* 动画 */
+    .footer a {
+        color: #0071e3;
+        text-decoration: none;
+    }
+
+    /* ===== 动画 ===== */
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
+        from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
     .fade-in {
-        animation: fadeIn 0.5s ease-out;
+        animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ===== 功能卡片网格 ===== */
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .feature-item {
+        background: #f5f5f7;
+        border-radius: 18px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .feature-item:hover {
+        background: #e8e8ed;
+        transform: translateY(-4px);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1d1d1f;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+        font-size: 0.85rem;
+        color: #86868b;
+        line-height: 1.5;
+    }
+
+    /* ===== 页面标题 ===== */
+    .page-header {
+        margin-bottom: 3rem;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1d1d1f;
+        letter-spacing: -0.03em;
+        margin-bottom: 0.75rem;
+    }
+
+    .page-subtitle {
+        font-size: 1.1rem;
+        color: #86868b;
+        font-weight: 400;
+    }
+
+    /* ===== 预测结果卡片 ===== */
+    .prediction-result {
+        background: linear-gradient(135deg, #1d1d1f 0%, #2d2d30 100%);
+        border-radius: 24px;
+        padding: 3rem;
+        text-align: center;
+        color: white;
+    }
+
+    .prediction-grade {
+        font-size: 5rem;
+        font-weight: 700;
+        letter-spacing: -0.05em;
+        margin: 1rem 0;
+    }
+
+    .prediction-label {
+        font-size: 1rem;
+        color: #86868b;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    /* ===== 步骤列表 ===== */
+    .steps-list {
+        list-style: none;
+        padding: 0;
+        counter-reset: step;
+    }
+
+    .steps-list li {
+        counter-increment: step;
+        padding: 1rem 0;
+        border-bottom: 1px solid #e8e8ed;
+        color: #1d1d1f;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .steps-list li:last-child {
+        border-bottom: none;
+    }
+
+    .steps-list li::before {
+        content: counter(step);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: #0071e3;
+        color: white;
+        border-radius: 50%;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-right: 1rem;
+    }
+
+    /* ===== 数据表格样式 ===== */
+    .stDataFrame {
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        border: 1px solid #e8e8ed !important;
+    }
+
+    /* ===== 选项卡样式 ===== */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 0;
+        border-bottom: 1px solid #e8e8ed;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        padding: 1rem 1.5rem !important;
+        font-weight: 500 !important;
+    }
+
+    .stTabs [aria-selected="true"] {
+        color: #0071e3 !important;
+        border-bottom: 2px solid #0071e3 !important;
+    }
+
+    /* ===== 滑块样式 ===== */
+    .stSlider > div > div > div {
+        background: #0071e3 !important;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
 
 
 def render_metric_card(label, value, icon=""):
-    """渲染指标卡片"""
+    """渲染指标卡片 - Apple 风格"""
     st.markdown(f"""
     <div class="metric-card fade-in">
         <div class="metric-label">{icon} {label}</div>
@@ -179,68 +443,88 @@ def render_metric_card(label, value, icon=""):
 
 
 def render_section_header(title, subtitle=""):
-    """渲染章节标题"""
+    """渲染章节标题 - Apple 风格"""
     st.markdown(f"""
-    <div style="margin-bottom: 1.5rem;">
-        <h2 style="margin-bottom: 0.5rem; color: #2c3e50;">{title}</h2>
-        {f'<p style="color: #7f8c8d; font-size: 1.1rem;">{subtitle}</p>' if subtitle else ''}
+    <div class="page-header">
+        <h2 class="page-title">{title}</h2>
+        {f'<p class="page-subtitle">{subtitle}</p>' if subtitle else ''}
     </div>
     """, unsafe_allow_html=True)
 
 
 def render_info_card(title, description=""):
-    """渲染信息卡片"""
+    """渲染信息卡片 - Apple 风格"""
     st.markdown(f"""
     <div class="custom-card">
-        <h3 style="margin-top: 0;">{title}</h3>
-        {f'<p style="color: #6c757d;">{description}</p>' if description else ''}
+        <h3>{title}</h3>
+        {f'<p>{description}</p>' if description else ''}
     </div>
     """, unsafe_allow_html=True)
 
 
 def render_empty_state(icon, message, sub_message=""):
-    """渲染空状态提示"""
+    """渲染空状态提示 - Apple 风格"""
     st.markdown(f"""
-    <div class="custom-card" style="text-align: center; padding: 3rem;">
-        <h3 style="color: #95a5a6;">{icon} {message}</h3>
-        {f'<p style="color: #bdc3c7;">{sub_message}</p>' if sub_message else ''}
+    <div class="custom-card" style="text-align: center; padding: 4rem 2rem;">
+        <div style="font-size: 3rem; margin-bottom: 1.5rem;">{icon}</div>
+        <h3 style="color: #1d1d1f; font-size: 1.5rem; margin-bottom: 0.75rem;">{message}</h3>
+        {f'<p style="color: #86868b; font-size: 1rem;">{sub_message}</p>' if sub_message else ''}
     </div>
     """, unsafe_allow_html=True)
 
 
 def render_sidebar():
-    """渲染侧边栏内容"""
+    """渲染侧边栏内容 - Apple 深色风格"""
     with st.sidebar:
-        st.markdown('<div class="sidebar-title">  学习行为分析</div>', unsafe_allow_html=True)
-        st.markdown('<div class="sidebar-decoration"></div>', unsafe_allow_html=True)
+        st.markdown('<div class="sidebar-title">学习行为分析</div>', unsafe_allow_html=True)
 
         st.markdown("""
-        <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 1rem; margin-bottom: 1rem;">
-            <p style="color: #ecf0f1; font-size: 0.9rem; margin: 0;">
-                基于机器学习的学业预测与数据分析平台
-            </p>
+        <div class="sidebar-subtitle">
+            基于机器学习的学业预测<br>与数据分析平台
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown('<div class="sidebar-decoration"></div>', unsafe_allow_html=True)
-
         st.markdown("""
-        <div style="text-align: center; padding: 1rem; color: #bdc3c7; font-size: 0.8rem;">
-            <p>  数据驱动决策</p>
-            <p>  机器学习预测</p>
-            <p>  可视化分析</p>
+        <div class="sidebar-features">
+            <span>  数据驱动决策</span>
+            <span>  机器学习预测</span>
+            <span>  可视化分析</span>
         </div>
         """, unsafe_allow_html=True)
 
 
 def render_footer():
-    """渲染页脚"""
+    """渲染页脚 - Apple 风格"""
     st.markdown("""
     <div class="footer">
-        <p>© 2024 大学生学习行为数据分析与学业预测系统 | 基于机器学习技术</p>
-        <p style="font-size: 0.8rem; color: #95a5a6;">使用 Streamlit + scikit-learn + pandas + matplotlib 构建</p>
+        <p>学习行为数据分析与学业预测系统</p>
+        <p style="margin-top: 0.5rem;">Streamlit · scikit-learn · pandas · matplotlib</p>
     </div>
     """, unsafe_allow_html=True)
+
+
+def render_feature_grid(features):
+    """渲染功能网格 - Apple 风格"""
+    html = '<div class="feature-grid">'
+    for icon, title, desc in features:
+        html += f"""
+        <div class="feature-item">
+            <div class="feature-icon">{icon}</div>
+            <div class="feature-title">{title}</div>
+            <div class="feature-desc">{desc}</div>
+        </div>
+        """
+    html += '</div>'
+    st.markdown(html, unsafe_allow_html=True)
+
+
+def render_steps(steps):
+    """渲染步骤列表 - Apple 风格"""
+    html = '<ol class="steps-list">'
+    for step in steps:
+        html += f'<li>{step}</li>'
+    html += '</ol>'
+    st.markdown(html, unsafe_allow_html=True)
 
 
 def validate_dataframe(df, required_columns=None):
@@ -257,7 +541,7 @@ def validate_dataframe(df, required_columns=None):
 def check_data_loaded():
     """检查数据是否已加载，未加载则显示提示"""
     if 'data_loaded' not in st.session_state or not st.session_state['data_loaded']:
-        render_empty_state(" ", "请先加载数据", "在「数据加载」模块中上传CSV文件或生成模拟数据")
+        render_empty_state(" ", "请先加载数据", "前往「数据加载」页面上传CSV文件或生成模拟数据")
         return False
     return True
 
@@ -265,6 +549,6 @@ def check_data_loaded():
 def check_model_trained():
     """检查模型是否已训练，未训练则显示提示"""
     if 'model_trained' not in st.session_state or not st.session_state['model_trained']:
-        render_empty_state(" ", "请先训练模型", "在「学业预测」模块中训练预测模型")
+        render_empty_state(" ", "请先训练模型", "前往「学业预测」页面训练预测模型")
         return False
     return True

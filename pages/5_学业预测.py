@@ -17,19 +17,15 @@ from utils import (
 from prediction import train_prediction_model, predict_grade
 
 # 页面配置
-st.set_page_config(page_title="学业预测", page_icon=" ", layout="wide")
+st.set_page_config(page_title="学业预测", layout="wide")
 load_custom_css()
 render_sidebar()
 
-# 页面标题
+# 页面标题 - Apple 风格
 st.markdown("""
-<div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-    <h1 style="text-align: center; margin: 0; font-size: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-        学业等级预测
-    </h1>
-    <p style="text-align: center; color: #6c757d; font-size: 1rem; margin-top: 0.5rem;">
-        基于机器学习的学业等级预测
-    </p>
+<div class="page-header">
+    <h1 class="page-title">学业等级预测</h1>
+    <p class="page-subtitle">基于机器学习的学业等级预测</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -48,12 +44,12 @@ if 'label_encoder' not in st.session_state:
 if 'metrics' not in st.session_state:
     st.session_state['metrics'] = None
 
-# 训练模型
+# 训练模型 - Apple 风格
 if not st.session_state['model_trained']:
     st.markdown("""
-    <div class="custom-card" style="text-align: center; padding: 2rem;">
-        <h3 style="color: #2c3e50;">训练预测模型</h3>
-        <p style="color: #6c757d;">使用逻辑回归算法训练学业等级预测模型</p>
+    <div class="custom-card" style="text-align: center; padding: 3rem;">
+        <h3>训练预测模型</h3>
+        <p>使用逻辑回归算法训练学业等级预测模型</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -71,8 +67,13 @@ if not st.session_state['model_trained']:
     render_footer()
     st.stop()
 
-# 用户输入表单
-render_info_card("输入学习行为数据", "调整以下参数，预测学业等级")
+# 用户输入表单 - Apple 风格
+st.markdown("""
+<div class="custom-card">
+    <h3>输入学习行为数据</h3>
+    <p>调整以下参数，预测学业等级</p>
+</div>
+""", unsafe_allow_html=True)
 
 col1, col2 = st.columns(2, gap="large")
 
@@ -103,19 +104,24 @@ if st.button("预测学业等级", type="primary", use_container_width=True):
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # 预测结果
+    # 预测结果 - Apple 风格深色卡片
     st.markdown(f"""
-    <div class="custom-card" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-        <h2 style="color: white; margin-bottom: 0.5rem;">预测结果</h2>
-        <div style="font-size: 3rem; font-weight: 700; margin: 1rem 0;">{prediction}</div>
-        <p style="opacity: 0.9;">预测的学业等级</p>
+    <div class="prediction-result">
+        <div class="prediction-label">预测结果</div>
+        <div class="prediction-grade">{prediction}</div>
+        <div class="prediction-label">预测的学业等级</div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
     # 概率分布
-    render_section_header("各等级概率分布", "")
+    st.markdown("""
+    <div class="custom-card">
+        <h3>各等级概率分布</h3>
+    </div>
+    """, unsafe_allow_html=True)
+
     prob_df = pd.DataFrame({
         '学业等级': list(prob_dict.keys()),
         '概率': [f"{p:.2%}" for p in prob_dict.values()]

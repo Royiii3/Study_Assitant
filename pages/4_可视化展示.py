@@ -23,19 +23,15 @@ from visualization import (
 )
 
 # 页面配置
-st.set_page_config(page_title="可视化展示", page_icon=" ", layout="wide")
+st.set_page_config(page_title="可视化展示", layout="wide")
 load_custom_css()
 render_sidebar()
 
-# 页面标题
+# 页面标题 - Apple 风格
 st.markdown("""
-<div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-    <h1 style="text-align: center; margin: 0; font-size: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-        可视化展示
-    </h1>
-    <p style="text-align: center; color: #6c757d; font-size: 1rem; margin-top: 0.5rem;">
-        多维度图表分析
-    </p>
+<div class="page-header">
+    <h1 class="page-title">可视化展示</h1>
+    <p class="page-subtitle">多维度图表分析</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -56,12 +52,12 @@ charts = [
     ("各班级学业等级分布", "各班级学业等级的堆叠柱状图", lambda: plot_grade_by_class(df)),
 ]
 
-# 渲染图表
+# 渲染图表 - Apple 风格
 for i, (title, desc, plot_func) in enumerate(charts):
     st.markdown(f"""
     <div class="custom-card">
-        <h3 style="margin-top: 0;">{title}</h3>
-        <p style="color: #6c757d;">{desc}</p>
+        <h3>{title}</h3>
+        <p>{desc}</p>
     </div>
     """, unsafe_allow_html=True)
 
