@@ -6,25 +6,34 @@
 
 ## 功能特点
 
-- 📁 **数据加载**：支持上传CSV数据文件或自动生成模拟数据
-- 🔧 **数据预处理**：自动处理缺失值、异常值，标准化数据格式
-- 📈 **统计分析**：学习行为与成绩的相关性分析
-- 🎨 **可视化展示**：多类型统计图表（柱状图、散点图、饼图、折线图）
-- 🔮 **学业预测**：基于逻辑回归模型的学业等级预测
-- 📊 **模型评估**：展示预测模型的准确率和评估指标
+-  **数据加载**：支持上传CSV数据文件或自动生成模拟数据
+- ⚙️ **数据预处理**：自动处理缺失值、异常值，标准化数据格式
+-  **统计分析**：学习行为与成绩的相关性分析
+-  **可视化展示**：多类型统计图表（柱状图、散点图、饼图、折线图）
+-  **学业预测**：基于逻辑回归模型的学业等级预测
+-  **模型评估**：展示预测模型的准确率和评估指标
 
 ## 项目结构
 
 ```
 Study_Assistant/
-├── main.py              # Streamlit主程序入口
-├── data_processing.py   # 数据处理模块
-├── visualization.py     # 可视化模块
-├── prediction.py        # 预测模块
-├── requirements.txt     # 依赖清单
-├── README.md            # 项目说明文档
-└── .streamlit/
-    └── config.toml      # Streamlit配置文件
+├── app.py                 # 主入口文件
+├── config.py              # 配置管理（特征列名、模型参数、UI配置）
+├── utils.py               # 工具函数（样式、渲染、验证）
+├── data_processing.py     # 数据处理模块
+├── visualization.py       # 可视化模块
+├── prediction.py          # 预测模块
+├── pages/                 # Streamlit多页面
+│   ├── 1_ 数据加载.py
+│   ├── 2_⚙️_数据预处理.py
+│   ├── 3_ 统计分析.py
+│   ├── 4_ 可视化展示.py
+│   ├── 5_ 学业预测.py
+│   └── 6_ 模型评估.py
+├── requirements.txt       # 依赖清单
+├── .streamlit/
+│   └── config.toml        # Streamlit配置
+└── .gitignore
 ```
 
 ## 环境要求
@@ -36,61 +45,26 @@ Study_Assistant/
 
 ### 1. 创建虚拟环境（推荐）
 
-为保证项目依赖不影响系统环境，建议使用虚拟环境运行：
-
-**注意：** 请确保你已经在 `Study_Assistant` 项目目录下！
-
 **Windows:**
 
 ```bash
-# 如果当前不在项目目录，先进入项目目录
-# cd 你的项目路径/Study_Assistant
-
-# 创建虚拟环境
 python -m venv venv
-
-# 激活虚拟环境
 venv\Scripts\activate
-
-# 或者使用完整路径（如果上面的命令有问题）
-# .\venv\Scripts\Activate.ps1
-
-# 安装依赖（推荐使用完整路径）
-.\venv\Scripts\python.exe -m pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 **macOS/Linux:**
 
 ```bash
-# 如果当前不在项目目录，先进入项目目录
-# cd 你的项目路径/Study_Assistant
-
-# 创建虚拟环境
 python3 -m venv venv
-
-# 激活虚拟环境
 source venv/bin/activate
-
-# 安装依赖
 pip install -r requirements.txt
 ```
 
 ### 2. 运行项目
 
-**Windows:**
-
 ```bash
-# 使用完整路径运行（推荐，避免路径问题）
-.\venv\Scripts\python.exe -m streamlit run main.py
-
-# 或者激活虚拟环境后直接运行
-# streamlit run main.py
-```
-
-**macOS/Linux:**
-
-```bash
-venv/bin/python -m streamlit run main.py
+streamlit run app.py
 ```
 
 运行成功后，会自动打开浏览器，显示系统界面。
@@ -99,7 +73,7 @@ venv/bin/python -m streamlit run main.py
 
 ### 数据加载
 
-1. 点击左侧导航菜单的「数据加载与预览」
+1. 点击左侧导航菜单的「数据加载」
 2. 点击「上传CSV」按钮上传数据文件，或点击「生成模拟数据」按钮使用内置模拟数据
 3. 查看数据预览和基本统计信息
 
@@ -142,20 +116,22 @@ venv/bin/python -m streamlit run main.py
 
 CSV数据文件应包含以下字段：
 
-- 学号：学生编号
-- 班级：学生所在班级（如金融201、金融202等）
-- 性别：学生性别
-- 学习时长：每周学习时长（小时）
-- 作业完成度：作业完成百分比
-- 考勤率：考勤百分比
-- 测验成绩：最近测验成绩
-- 课堂参与度：1-5分
-- 编程成绩：编程语言科目成绩
-- 高数成绩：高等数学科目成绩
-- 英语成绩：英语科目成绩
-- Python成绩：Python语言科目成绩
-- 最终成绩：综合成绩
-- 学业等级：优/良/中/差
+| 字段 | 说明 |
+|------|------|
+| 学号 | 学生编号 |
+| 班级 | 学生所在班级 |
+| 性别 | 学生性别 |
+| 学习时长 | 每周学习时长（小时） |
+| 作业完成度 | 作业完成百分比 |
+| 考勤率 | 考勤百分比 |
+| 测验成绩 | 最近测验成绩 |
+| 课堂参与度 | 1-5分 |
+| 编程成绩 | 编程语言科目成绩 |
+| 高数成绩 | 高等数学科目成绩 |
+| 英语成绩 | 英语科目成绩 |
+| Python成绩 | Python语言科目成绩 |
+| 最终成绩 | 综合成绩 |
+| 学业等级 | 优/良/中/差 |
 
 ## 技术栈
 
@@ -173,5 +149,4 @@ CSV数据文件应包含以下字段：
 3. **虚拟环境命令**：
    - Windows: `venv\Scripts\activate`
    - macOS/Linux: `source venv/bin/activate`
-4. **Streamlit运行**：不同系统均使用`python -m streamlit run main.py`命令
-
+4. **Streamlit运行**：不同系统均使用`streamlit run app.py`命令
