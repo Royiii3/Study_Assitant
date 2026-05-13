@@ -6,11 +6,12 @@ import plotly.graph_objects as go
 import plotly.subplots as sp
 import pandas as pd
 import numpy as np
+from config import SUBJECT_SCORES
 
 
 def plot_score_distribution(df):
     """绘制科目成绩分布柱状图"""
-    score_cols = ['PTA成绩', '高数成绩', '英语成绩', 'Python成绩']
+    score_cols = [col for col in SUBJECT_SCORES if col in df.columns]
     bins = [0, 60, 70, 80, 90, 100]
     labels = ['不及格', '及格', '中等', '良好', '优秀']
 
