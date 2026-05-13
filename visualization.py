@@ -10,7 +10,7 @@ import numpy as np
 
 def plot_score_distribution(df):
     """绘制科目成绩分布柱状图"""
-    score_cols = ['编程成绩', '高数成绩', '英语成绩', 'Python成绩']
+    score_cols = ['PTA成绩', '高数成绩', '英语成绩', 'Python成绩']
     bins = [0, 60, 70, 80, 90, 100]
     labels = ['不及格', '及格', '中等', '良好', '优秀']
 

@@ -26,7 +26,7 @@ def generate_synthetic_data():
         '考勤率': np.random.normal(90, 8, n).clip(60, 100),
         '测验成绩': np.random.normal(75, 15, n).clip(30, 100),
         '课堂参与度': np.random.randint(1, 6, n),
-        '编程成绩': np.random.normal(78, 14, n).clip(40, 100),
+        'PTA成绩': np.random.normal(78, 14, n).clip(40, 100),
         '高数成绩': np.random.normal(72, 16, n).clip(35, 100),
         '英语成绩': np.random.normal(75, 12, n).clip(40, 100),
         'Python成绩': np.random.normal(70, 15, n).clip(30, 100),
