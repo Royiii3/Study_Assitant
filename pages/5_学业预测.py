@@ -32,6 +32,14 @@ if 'data_loaded' not in st.session_state or not st.session_state['data_loaded']:
     render_footer()
     st.stop()
 
+# 检查是否已执行数据预处理
+if 'scaler' not in st.session_state or st.session_state['scaler'] is None:
+    with ui.card(key="empty_card"):
+        st.markdown("### ⚙️ 请先执行数据预处理")
+        st.markdown("前往「数据预处理」页面执行预处理操作")
+    render_footer()
+    st.stop()
+
 # 初始化会话状态
 if 'model_trained' not in st.session_state:
     st.session_state['model_trained'] = False
