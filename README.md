@@ -36,6 +36,10 @@ Study_Assistant/
 └── .gitignore
 ```
 
+## 在线访问
+
+可以直接访问 [hdustudyassistantv2.streamlit.app](https://hdustudyassistantv2.streamlit.app) 在线体验本系统，无需本地安装。
+
 ## 环境要求
 
 - Python 3.8 及以上版本
